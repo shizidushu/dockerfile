@@ -1,81 +1,81 @@
 FROM rocker/shiny
 
-## Install linux packages may depend on
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    autoconf \
+    automake \
+    apt-transport-https \
+    cron \
+    curl \
+    debconf-utils \
+    default-jdk \
+    fonts-roboto \
+    fonts-wqy-zenhei \
+    freetds-bin  \
+    freetds-common  \
+    freetds-dev \
+    ghostscript \
+    git \
+    gnupg2 \
+    less \
+    libapparmor1 \
+    libbz2-dev \
+    libcairo2-dev \
+    libdigest-hmac-perl \
+    libedit2 \
+    libfreetype6-dev \
+    libgl1-mesa-dev  \
+    libglpk-dev \
+    libglu1-mesa-dev \
+    libgmp-dev  \
+    libgmp10-dev \
+    libgmp3-dev \
+    libgsl0-dev \
+    libhiredis-dev \
+    libhunspell-dev \
+    libicu-dev \
+    libjq-dev \
+    libmagick++-dev \
+    libnetcdf-dev  \
+    libnetcdf11  \
+    libpq-dev \
+    librdf0-dev \
+    libsecret-1-dev \
+    libsndfile1  \
+    libsndfile1-dev \
+    libssh2-1-dev \
+    libssl-dev \
+    libtiff-dev \
+    libtool \
+    libudunits2-dev \
+    libv8-dev \
+    m4 \
+    netcdf-bin \
+    odbc-postgresql \
+    pandoc \
+    psmisc \
+    python-setuptools \
+    qpdf \
+    ssh \
+    sudo \
+    tdsodbc  \
+    unixodbc-dev \
+    vim \
+    wget \
+  && R CMD javareconf \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/
 
-## install SQL Server drivers and tools
-### https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server    
-### https://github.com/Microsoft/mssql-docker/blob/master/linux/mssql-tools/Dockerfile
-
-## Fix package dependency & git chinese character path
-### http://blog.csdn.net/gxp/article/details/26563579
-
-## Install imagemagick
-### 1. make a new directory
-### 2. download the latest source from https://www.imagemagick.org/download/ImageMagick.tar.gz
-### 3. open the only one folder. https://askubuntu.com/questions/454688/how-do-you-cd-into-the-first-available-folder-without-typing-out-the-name
-### 4. install
-
-
-RUN echo "deb http://ftp2.cn.debian.org/debian stretch main non-free contrib" >> /etc/apt/sources.list \
-    && apt-get update && apt-get -y install \
-        apache2-utils \
-        apt-transport-https \
-        autoconf \
-        automake \
-        cron \
-        curl \
-        debconf-utils \
-        default-jdk \
-        fonts-wqy-zenhei \
-        gnupg1 \
-        gnupg2 \
-        libcurl4 \
-        libcurl4-openssl-dev \
-        libglu1-mesa-dev \
-        libhiredis-dev \
-        libpq-dev \
-        libsecret-1-dev \
-        libtool \
-        libudunits2-dev \
-        m4 \
-        xz-utils \
-    && R CMD javareconf \
-    && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list \
-    && apt-get update \
-    && ACCEPT_EULA=Y apt-get -y install msodbcsql17 \
-    && ACCEPT_EULA=Y apt-get -y install mssql-tools \
-    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile \
-    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc \
-    && /bin/bash -c "source ~/.bashrc" \
-    && apt-get -y install unixodbc-dev \
-    && git config --global core.quotepath false \
-    && git config --global gui.encoding utf-8 \
-    && git config --global i18n.commit.encoding utf-8 \
-    && git config --global i18n.logoutputencoding utf-8 \
-    && export LESSCHARSET=utf-8 \
-    && mkdir /tmp/imk \
-    && cd /tmp/imk \
-    && wget --no-verbose "https://www.imagemagick.org/download/ImageMagick.tar.gz" \
-    && tar xvzf ImageMagick.tar.gz \
-    && cd */ \
-    && ./configure \
-      --disable-static \
-      --enable-shared \
-      --with-gslib \
-      --with-jpeg \
-      --with-openjp2 \
-      --with-png \
-      --with-tiff \
-      --with-quantum-depth=8 \
-    && make \
-    && make install \
-    && ldconfig /usr/local/lib \
-    && cd / \
-    && apt-get autoremove -y \
-    && apt-get autoclean -y \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+  && curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+  && apt-get update \
+  && ACCEPT_EULA=Y apt-get -y install msodbcsql17 \
+  && ACCEPT_EULA=Y apt-get -y install mssql-tools \
+  && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile \
+  && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc \
+  && /bin/bash -c "source ~/.bashrc" \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/
 
 
 
