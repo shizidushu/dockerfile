@@ -2,6 +2,10 @@ sudo: true
 
 dist: trusty
 
+before_install:
+- sudo apt-get update -qq
+- sudo apt-get install -qq libssl-dev 
+
 jobs:
   include:
     - stage: build docker image
