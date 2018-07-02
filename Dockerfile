@@ -1,7 +1,7 @@
 FROM rocker/shiny
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
+  && apt-get install -y \
     autoconf \
     automake \
     apt-transport-https \
@@ -62,10 +62,6 @@ RUN apt-get update \
     vim \
     wget \
     libcurl4 \
-    libraptor2-dev \
-    librasqal3-dev \
-    libcurl4-gnutls-dev \
-    libcurl4-openssl-dev \
   && R CMD javareconf \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
