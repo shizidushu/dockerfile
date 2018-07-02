@@ -61,6 +61,8 @@ RUN apt-get update \
     unixodbc-dev \
     vim \
     wget \
+    libcurl3 \
+    libcurl4-openssl-dev \
   && R CMD javareconf \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
