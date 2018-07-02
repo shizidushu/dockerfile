@@ -29,6 +29,7 @@ RUN echo "deb http://ftp2.cn.debian.org/debian stretch main non-free contrib" >>
         fonts-wqy-zenhei \
         gnupg1 \
         gnupg2 \
+        libcurl3 \
         libglu1-mesa-dev \
         libhiredis-dev \
         libpq-dev \
