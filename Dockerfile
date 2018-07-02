@@ -2,6 +2,7 @@ FROM rocker/r-ver:latest
 
 # Install dependencies and Download and install shiny server
 RUN apt-get update && apt-get install -y \
+    apt-transport-https \
     sudo \
     curl \
     gdebi-core \
