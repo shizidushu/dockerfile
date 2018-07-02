@@ -62,6 +62,9 @@ RUN apt-get update \
     vim \
     wget \
     libcurl3 \
+    libcurl4 \
+    libraptor2-dev \
+    librasqal3-dev \
     libcurl4-openssl-dev \
   && R CMD javareconf \
   && apt-get clean \
