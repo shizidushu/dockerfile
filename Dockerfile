@@ -1,13 +1,13 @@
 FROM rocker/r-ver:latest
 
 # Install dependencies and Download and install shiny server
-RUN apt-get update && apt-get install -y -t unstable \
+RUN apt-get update && apt-get install -y \
     sudo \
     gdebi-core \
     pandoc \
     pandoc-citeproc \
     libcurl4-gnutls-dev \
-    libcairo2-dev/unstable \
+    libcairo2-dev \
     libxt-dev && \
     wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubuntu-12.04/x86_64/VERSION -O "version.txt" && \
     VERSION=$(cat version.txt)  && \
