@@ -37,7 +37,6 @@ RUN apt-get update \
     libjq-dev \
     libmagick++-dev \
     libnetcdf-dev  \
-    libnetcdf11  \
     libpq-dev \
     librdf0-dev \
     libsecret-1-dev \
