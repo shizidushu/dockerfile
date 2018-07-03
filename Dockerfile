@@ -46,3 +46,20 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
   && ACCEPT_EULA=Y apt-get -y install msodbcsql17 \
   && ACCEPT_EULA=Y apt-get -y install mssql-tools
 ENV PATH="/opt/mssql-tools/bin:${PATH}"
+
+# https://github.com/rocker-org/rocker-versioned/blob/master/verse/Dockerfile
+## Use tinytex for LaTeX installation
+RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
+  && dpkg -i texlive-local.deb \
+  && rm texlive-local.deb \
+  && wget -qO- \
+    "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
+    sh -s - --admin --no-path \
+  && mv ~/.TinyTeX /opt/TinyTeX \
+  && /opt/TinyTeX/bin/*/tlmgr path add \
+  && tlmgr install metafont mfware inconsolata tex ae parskip listings \
+  && tlmgr path add \
+  && Rscript -e "source('https://install-github.me/yihui/tinytex'); tinytex::r_texmf()" \
+  && chown -R root:staff /opt/TinyTeX \
+  && chmod -R g+w /opt/TinyTeX \
+  && chmod -R g+wx /opt/TinyTeX/bin
