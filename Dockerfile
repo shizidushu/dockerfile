@@ -48,7 +48,8 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
 ENV PATH="/opt/mssql-tools/bin:${PATH}"
 
 # https://github.com/rocker-org/rocker-versioned/blob/master/verse/Dockerfile
-## Use tinytex for LaTeX installation
+# Use tinytex for LaTeX installation
+## change the directory's owner to be root and add it to group staff
 RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && dpkg -i texlive-local.deb \
   && rm texlive-local.deb \
@@ -60,7 +61,6 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && tlmgr install metafont mfware inconsolata tex ae parskip listings \
   && tlmgr path add \
   && Rscript -e "source('https://install-github.me/yihui/tinytex'); tinytex::r_texmf()" \
-  # change the directory's owner to be root and add it to group staff
   && chown -R root:staff /opt/TinyTeX \
   && chmod -R g+w /opt/TinyTeX \
   && chmod -R g+wx /opt/TinyTeX/bin
