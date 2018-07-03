@@ -60,6 +60,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && tlmgr install metafont mfware inconsolata tex ae parskip listings \
   && tlmgr path add \
   && Rscript -e "source('https://install-github.me/yihui/tinytex'); tinytex::r_texmf()" \
+  # change the directory's owner to be root and add it to group staff
   && chown -R root:staff /opt/TinyTeX \
   && chmod -R g+w /opt/TinyTeX \
   && chmod -R g+wx /opt/TinyTeX/bin
