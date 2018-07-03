@@ -6,5 +6,5 @@ Add the the following:
 
 - System package R or related depends on
 - Fix the path for Chinese
-- ADD SQL Server ODBC driver
-- ADD tinytex
+- Add SQL Server ODBC driver
+- Add tinytex
