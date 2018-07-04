@@ -1,5 +1,21 @@
 FROM rocker/verse
 
+## Install system package that r packages depends on
+RUN apt-get update && apt-get install -y \
+    apt-transport-https \
+    cron \
+    curl \
+    fonts-wqy-zenhei \
+    gnupg2 \
+    libglu1-mesa-dev \
+    libhiredis-dev \
+    libpq-dev \
+    libudunits2-dev \
+  && apt-get autoremove -y \
+  && apt-get autoclean -y \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
 
 ## Fix package dependency & git chinese character path
 ### http://blog.csdn.net/gxp/article/details/26563579
