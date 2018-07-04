@@ -1,24 +1,38 @@
-FROM shizidushu/complete-r
-
-# Install shiny server
-RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubuntu-12.04/x86_64/VERSION -O "version.txt"\
-  && VERSION=$(cat version.txt) \
-  && wget --no-verbose "https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubuntu-12.04/x86_64/shiny-server-$VERSION-amd64.deb" -O ss-latest.deb \
-  && gdebi -n ss-latest.deb \
-  && rm -f version.txt ss-latest.deb \
-  && R -e "install.packages(c('shiny', 'rmarkdown'), repos='https://cran.rstudio.com/')" \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+FROM rocker/verse
 
 
+## Fix package dependency & git chinese character path
+### http://blog.csdn.net/gxp/article/details/26563579
+
+RUN git config --global core.quotepath false \
+    && git config --global gui.encoding utf-8 \
+    && git config --global i18n.commit.encoding utf-8 \
+    && git config --global i18n.logoutputencoding utf-8
+ENV LESSCHARSET=utf-8
+
+
+## install SQL Server drivers and tools
+### https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server    
+### https://github.com/Microsoft/mssql-docker/blob/master/linux/mssql-tools/Dockerfile
+
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+  && curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+  && apt-get update \
+  && ACCEPT_EULA=Y apt-get -y install msodbcsql17 \
+  && ACCEPT_EULA=Y apt-get -y install mssql-tools
+ENV PATH="/opt/mssql-tools/bin:${PATH}"
+
+
+## Add cron to s6-init system
+RUN mkdir -p /etc/services.d/cron \
+  && echo '#!/bin/sh \
+      \n exec cron -f' \
+      > /etc/services.d/cron/run 
+
+
+## Install R packages and latex packages
 RUN Rscript -e "install.packages('devtools')" \
-  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-for-shiny.txt')"
-
-RUN cd /usr/bin/ \
-  && wget https://raw.githubusercontent.com/rocker-org/shiny/master/shiny-server.sh \
-  && chmod 700 shiny-server.sh \
-  && cd /
-
-
-EXPOSE 3838
-
-CMD ["/usr/bin/shiny-server.sh"]
+  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.txt')" \
+  && Rscript -e "tinytex::tlmgr_install(readr::read_lines('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/latex-pkgs.txt'))" \
+  && Rscript -e "tinytex::tlmgr_update()" \
+  && rm -rf /tmp/Rtmp*
