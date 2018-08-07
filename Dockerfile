@@ -21,7 +21,11 @@ RUN apt-get update && apt-get install -y \
     libmagick++-dev \
     libpq-dev \
     libssl-dev \
+    tdsodbc \
+    libsqliteodbc \
+    libmyodbc \
     odbc-postgresql \
+    unixodbc \
     unixodbc-dev \
   && R CMD javareconf \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
