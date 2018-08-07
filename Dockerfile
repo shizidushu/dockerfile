@@ -23,7 +23,6 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     tdsodbc \
     libsqliteodbc \
-    libmyodbc \
     odbc-postgresql \
     unixodbc \
     unixodbc-dev \
