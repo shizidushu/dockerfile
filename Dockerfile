@@ -11,6 +11,12 @@ RUN apt-get update && apt-get install -y \
     libhiredis-dev \
     libpq-dev \
     libudunits2-dev \
+    tdsodbc \
+    libsqliteodbc \
+    libmyodbc \
+    odbc-postgresql \
+    unixodbc \
+    unixodbc-dev \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
