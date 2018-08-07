@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/shizidushu/dockerfile.svg?branch=full-r)](https://travis-ci.org/shizidushu/dockerfile)
+[![Build Status](https://www.travis-ci.org/shizidushu/dockerfile.svg?branch=full-r)](https://www.travis-ci.org/shizidushu/dockerfile)
 
 
 - Based on complete-r
