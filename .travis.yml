@@ -1,0 +1,12 @@
+sudo: true
+dist: trusty
+
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t full-r .
+      - docker images
+      - docker tag full-r $DOCKER_USERNAME/full-r
+      - docker push $DOCKER_USERNAME/full-r
