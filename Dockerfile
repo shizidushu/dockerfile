@@ -17,7 +17,5 @@ RUN echo '\n\
 
 EXPOSE 8000
 
-## run R plumber with the last supplied CMD as supplied file
-ENTRYPOINT ["R", "-e", "pr <- plumber::plumb(rev(commandArgs())[1]); pr$run(host='0.0.0.0', port=8000, swagger=TRUE)"]
-
-CMD ["/usr/local/lib/R/site-library/plumber/examples/04-mean-sum/plumber.R"]
+## Source a R script with the last supplied CMD as supplied file to mount and run plumber
+ENTRYPOINT ["Rscript", "-e", "source(rev(commandArgs())[1])"]
