@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
     odbc-postgresql \
     unixodbc \
     unixodbc-dev \
+    xtail \
   && R CMD javareconf \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
