@@ -6,7 +6,7 @@ jobs:
     - stage: build docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t rstudio .
+      - docker build -t rstudio-preview .
       - docker images
-      - docker tag rstudio $DOCKER_USERNAME/rstudio
-      - docker push $DOCKER_USERNAME/rstudio
+      - docker tag rstudio-preview $DOCKER_USERNAME/rstudio-preview
+      - docker push $DOCKER_USERNAME/rstudio-preview
