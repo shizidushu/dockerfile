@@ -27,6 +27,15 @@ RUN apt-get update && apt-get install -y \
     unixodbc \
     unixodbc-dev \
     xtail \
+    libudunits2-dev \
+    libgdal-dev \
+    libgeos-dev \
+    libproj-dev \
+    libv8-dev \
+    libjq-dev \
+    libprotobuf-dev \
+    protobuf-compiler \
+    libssl-dev \
   && R CMD javareconf \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
