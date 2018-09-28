@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y \
     unixodbc \
     unixodbc-dev \
     xtail \
+    librsvg \
   && R CMD javareconf \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
