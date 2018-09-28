@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     odbc-postgresql \
     unixodbc \
     unixodbc-dev \
+    librsvg \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
