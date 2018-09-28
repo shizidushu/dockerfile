@@ -17,6 +17,14 @@ RUN apt-get update && apt-get install -y \
     unixodbc \
     unixodbc-dev \
     libmagick++-dev \
+    libgdal-dev \
+    libgeos-dev \
+    libproj-dev \
+    libv8-dev \
+    libjq-dev \
+    libprotobuf-dev \
+    protobuf-compiler \
+    libssl-dev \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
