@@ -12,3 +12,7 @@ Based on rocker/verse. This image adds the following:
 - Add SQL Server ODBC driver
 - Add Cron to s6-init system
 - Install R packages and latex packages
+
+
+
+`docker pull shizidushu/rstudio`
