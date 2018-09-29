@@ -2,6 +2,7 @@ FROM rocker/verse
 
 ## Install system package that r packages depends on
 RUN apt-get update && apt-get install -y \
+    software-properties-common \
     apt-transport-https \
     cron \
     curl \
@@ -17,15 +18,18 @@ RUN apt-get update && apt-get install -y \
     unixodbc \
     unixodbc-dev \
     librsvg2-2 \
-    libmagick++-dev \
     libgdal-dev \
     libgeos-dev \
     libproj-dev \
     libv8-dev \
-    libjq-dev \
     libprotobuf-dev \
     protobuf-compiler \
     libssl-dev \
+  && add-apt-repository -y ppa:opencpu/imagemagick \
+  && add-apt-repository -y ppa:opencpu/jq \
+  && apt-get update \
+  && apt-get install -y libmagick++-dev \
+    libjq-dev \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
