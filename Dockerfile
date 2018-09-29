@@ -25,11 +25,9 @@ RUN apt-get update && apt-get install -y \
     libprotobuf-dev \
     protobuf-compiler \
     libssl-dev \
-  && add-apt-repository -y ppa:opencpu/imagemagick \
-  && add-apt-repository -y ppa:opencpu/jq \
-  && apt-get update \
-  && apt-get install -y libmagick++-dev \
+    libcairo2-dev \
     libjq-dev \
+    libmagick++-dev \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
