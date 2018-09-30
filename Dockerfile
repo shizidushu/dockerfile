@@ -54,7 +54,7 @@ RUN mkdir -p /etc/services.d/cron \
 
 
 ## Install R packages and latex packages
-RUN Rscript -e "if (!require(devtools)) install.packages("devtools")" \
+RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
   && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.R')" \
   && Rscript -e "tinytex::tlmgr_install(readr::read_lines('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/latex-pkgs.txt'))" \
   && Rscript -e "tinytex::tlmgr_update()" \
