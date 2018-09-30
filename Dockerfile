@@ -17,16 +17,6 @@ RUN apt-get update && apt-get install -y \
     odbc-postgresql \
     unixodbc \
     unixodbc-dev \
-    librsvg2-2 \
-    libgdal-dev \
-    libgeos-dev \
-    libproj-dev \
-    libv8-dev \
-    libprotobuf-dev \
-    protobuf-compiler \
-    libssl-dev \
-    libcairo2-dev \
-    libjq-dev \
     libmagick++-dev \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
@@ -65,7 +55,7 @@ RUN mkdir -p /etc/services.d/cron \
 
 ## Install R packages and latex packages
 RUN Rscript -e "install.packages('devtools')" \
-  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.txt')" \
+  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.R')" \
   && Rscript -e "blogdown::install_hugo()" \
   && Rscript -e "tinytex::tlmgr_install(readr::read_lines('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/latex-pkgs.txt'))" \
   && Rscript -e "tinytex::tlmgr_update()" \
