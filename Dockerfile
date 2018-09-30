@@ -10,14 +10,8 @@ RUN apt-get update && apt-get install -y \
     gnupg2 \
     libglu1-mesa-dev \
     libhiredis-dev \
-    libpq-dev \
     libudunits2-dev \
-    tdsodbc \
-    libsqliteodbc \
     odbc-postgresql \
-    unixodbc \
-    unixodbc-dev \
-    libmagick++-dev \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
