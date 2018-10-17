@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     pandoc \
     pandoc-citeproc \
     libcurl4-gnutls-dev \
-    libssh2-devel \
+    libssh2-1-dev \
     libcairo2-dev \
     libxt-dev \
     wget \
