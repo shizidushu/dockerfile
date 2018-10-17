@@ -5,6 +5,7 @@ jobs:
   include:
     - stage: build docker image
       script:
+      - curl -i https://api.github.com -u shizidushu:$GITHUB_PASSWORD
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build -t complete-r .
       - docker images
