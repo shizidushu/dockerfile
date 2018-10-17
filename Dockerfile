@@ -2,18 +2,24 @@ FROM rocker/r-ver:latest
 
 ## Install system package that r packages depends on
 RUN apt-get update && apt-get install -y \
+    software-properties-common \
     apt-transport-https \
     sudo \
+    cron \
     curl \
     gdebi-core \
+    fonts-wqy-zenhei \
     pandoc \
     pandoc-citeproc \
     libcurl4-gnutls-dev \
+    libssh2-devel \
     libcairo2-dev \
     libxt-dev \
     wget \
     default-jdk \
     fonts-wqy-zenhei \
+    libglu1-mesa-dev \
+    libudunits2-dev \
     git \
     gnupg2 \
     libgl1-mesa-dev  \
@@ -29,7 +35,6 @@ RUN apt-get update && apt-get install -y \
     xtail \
   && R CMD javareconf \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 
 ## Fix package dependency & git chinese character path
 ### http://blog.csdn.net/gxp/article/details/26563579
