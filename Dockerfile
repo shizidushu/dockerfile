@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     fonts-wqy-zenhei \
     libglu1-mesa-dev \
     libudunits2-dev \
+    libgit2-dev \
     git \
     gnupg2 \
     libgl1-mesa-dev  \
