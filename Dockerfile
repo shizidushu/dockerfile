@@ -1,5 +1,7 @@
 FROM shizidushu/complete-r
 
+ARG GITHUB_PAT
+
 # Install shiny server
 RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubuntu-12.04/x86_64/VERSION -O "version.txt"\
   && VERSION=$(cat version.txt) \

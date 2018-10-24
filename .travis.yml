@@ -6,7 +6,7 @@ jobs:
     - stage: build docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t shiny .
+      - docker build --build-arg GITHUB_PAT=$GITHUB_ACCESS_TOKEN -t shiny .
       - docker images
       - docker tag shiny $DOCKER_USERNAME/shiny
       - docker push $DOCKER_USERNAME/shiny
