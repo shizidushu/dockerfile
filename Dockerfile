@@ -3,8 +3,6 @@ FROM shizidushu/rstudio
 ARG GITHUB_PAT
 ENV GITHUB_PAT ${GITHUB_PAT}
 
-RUN echo $GITHUB_PAT
-
 # Install Rstudio preview
 RUN apt-get update \
   && apt-get install -y libclang-dev \
