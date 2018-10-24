@@ -5,9 +5,8 @@ jobs:
   include:
     - stage: build docker image
       script:
-      - echo "GITHUB_PAT=$GITHUB_PAT" >> /usr/local/lib/R/etc/Renviron
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t rstudio-preview .
+      - docker build --build-arg GITHUB_PAT=$GITHUB_PAT -t rstudio-preview .
       - docker images
       - docker tag rstudio-preview $DOCKER_USERNAME/rstudio-preview
       - docker push $DOCKER_USERNAME/rstudio-preview
