@@ -4,6 +4,7 @@ dist: trusty
 jobs:
   include:
     - stage: build docker image
+    - github-token: $GITHUB_TOKEN
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build -t rstudio-preview .
