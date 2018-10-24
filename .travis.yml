@@ -6,7 +6,7 @@ jobs:
     - stage: build docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t plumber .
+      - docker build --build-arg GITHUB_PAT=$GITHUB_ACCESS_TOKEN -t plumber .
       - docker images
       - docker tag plumber $DOCKER_USERNAME/plumber
       - docker push $DOCKER_USERNAME/plumber
