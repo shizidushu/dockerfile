@@ -1,5 +1,8 @@
 FROM rocker/r-ver:latest
 
+ARG GITHUB_PAT
+ENV GITHUB_PAT ${GITHUB_PAT}
+
 ## Install system package that r packages depends on
 RUN apt-get update && apt-get install -y \
     software-properties-common \
