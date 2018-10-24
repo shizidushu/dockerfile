@@ -4,8 +4,8 @@ dist: trusty
 jobs:
   include:
     - stage: build docker image
-    - github-token: $GITHUB_TOKEN
       script:
+      - echo "GITHUB_PAT=$GITHUB_PAT" >> /usr/local/lib/R/etc/Renviron
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build -t rstudio-preview .
       - docker images
