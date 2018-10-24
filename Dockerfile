@@ -1,7 +1,6 @@
 FROM shizidushu/rstudio
 
 ARG GITHUB_PAT
-ENV GITHUB_PAT ${GITHUB_PAT}
 
 # Install Rstudio preview
 RUN apt-get update \
