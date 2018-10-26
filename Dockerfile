@@ -12,8 +12,9 @@ RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubu
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
-RUN Rscript -e "install.packages('devtools')" \
-  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-for-shiny.txt')"
+RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
+  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-dev.R')" \
+  && rm -rf /tmp/Rtmp*
 
 RUN cd /usr/bin/ \
   && wget https://raw.githubusercontent.com/rocker-org/shiny/master/shiny-server.sh \
