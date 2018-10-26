@@ -11,7 +11,6 @@ RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubu
   && R -e "install.packages(c('shiny', 'rmarkdown'), repos='https://cran.rstudio.com/')" \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-
 RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
   && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-dev.R')" \
   && rm -rf /tmp/Rtmp*
