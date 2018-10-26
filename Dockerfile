@@ -85,3 +85,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && chown -R root:staff /opt/TinyTeX \
   && chmod -R g+w /opt/TinyTeX \
   && chmod -R g+wx /opt/TinyTeX/bin
+
+RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
+  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.R')" \
+  && rm -rf /tmp/Rtmp*
