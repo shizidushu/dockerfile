@@ -45,7 +45,6 @@ RUN apt-get update && apt-get install -y \
     libprotobuf-dev \
     protobuf-compiler \
     libssl-dev \
-    libgdal-dev \
   && R CMD javareconf \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
