@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     libhiredis-dev \
     libudunits2-dev \
     odbc-postgresql \
+    libgdal-dev \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
