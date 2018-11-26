@@ -2,6 +2,10 @@ FROM shizidushu/rstudio
 
 ARG GITHUB_PAT
 
+USER rstudio
+RUN Rscript -e "blogdown::install_hugo()"
+USER root
+
 # Install Rstudio preview
 RUN apt-get update \
   && apt-get install -y libclang-dev \
