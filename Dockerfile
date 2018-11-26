@@ -6,6 +6,7 @@ ARG GITHUB_PAT
 RUN apt-get update && apt-get install -y \
     software-properties-common \
     apt-transport-https \
+    chromium-browser \
     cron \
     curl \
     fonts-wqy-zenhei \
