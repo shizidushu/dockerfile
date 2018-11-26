@@ -56,7 +56,3 @@ RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
   && Rscript -e "tinytex::tlmgr_install(readr::read_lines('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/latex-pkgs.txt'))" \
   && Rscript -e "tinytex::tlmgr_update()" \
   && rm -rf /tmp/Rtmp*
-
-USER rstudio
-RUN Rscript -e "blogdown::install_hugo()"
-USER root
