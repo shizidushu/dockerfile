@@ -3,8 +3,7 @@ FROM rocker/verse
 ARG GITHUB_PAT
 
 ## Install system package that r packages depends on
-RUN add-apt-repository -y ppa:ubuntu-mozilla-security/ppa \
-  && apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y \
     software-properties-common \
     apt-transport-https \
     bzip2 \
@@ -17,7 +16,8 @@ RUN add-apt-repository -y ppa:ubuntu-mozilla-security/ppa \
     libudunits2-dev \
     odbc-postgresql \
     libgdal-dev \
-    firefox \
+  && add-apt-repository -y ppa:ubuntu-mozilla-security/ppa \
+  && apt-get update && apt-get install -y firefox \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
