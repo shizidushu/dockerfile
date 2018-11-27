@@ -3,7 +3,7 @@ FROM rocker/verse
 ARG GITHUB_PAT
 
 ## Install system package that r packages depends on
-RUN add-apt-repository ppa:ubuntu-mozilla-security/ppa \
+RUN add-apt-repository -y ppa:ubuntu-mozilla-security/ppa \
   && apt-get update && apt-get install -y \
     software-properties-common \
     apt-transport-https \
