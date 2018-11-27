@@ -3,7 +3,8 @@ FROM rocker/verse
 ARG GITHUB_PAT
 
 ## Install system package that r packages depends on
-RUN apt-get update && apt-get install -y \
+RUN add-apt-repository ppa:ubuntu-mozilla-security/ppa \
+  && apt-get update && apt-get install -y \
     software-properties-common \
     apt-transport-https \
     bzip2 \
@@ -16,13 +17,7 @@ RUN apt-get update && apt-get install -y \
     libudunits2-dev \
     odbc-postgresql \
     libgdal-dev \
-    unzip \
-    xvfb \
-    libxi6 \
-    libgconf-2-4 \
-  && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-  && dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install \
-  && rm google-chrome-stable_current_amd64.deb \
+    firefox
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
