@@ -16,6 +16,10 @@ RUN apt-get update && apt-get install -y \
     libudunits2-dev \
     odbc-postgresql \
     libgdal-dev \
+    unzip \
+    xvfb \
+    libxi6 \
+    libgconf-2-4 \
   && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
   && dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install \
   && rm google-chrome-stable_current_amd64.deb \
