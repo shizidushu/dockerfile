@@ -17,7 +17,7 @@ RUN add-apt-repository ppa:ubuntu-mozilla-security/ppa \
     libudunits2-dev \
     odbc-postgresql \
     libgdal-dev \
-    firefox
+    firefox \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
