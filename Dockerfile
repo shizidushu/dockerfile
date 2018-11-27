@@ -47,6 +47,9 @@ RUN apt-get update && apt-get install -y \
     protobuf-compiler \
     libssl-dev \
   && R CMD javareconf \
+  && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+  && dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install \
+  && rm google-chrome-stable_current_amd64.deb \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ## Fix package dependency & git chinese character path
