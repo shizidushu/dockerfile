@@ -1,5 +1,12 @@
 FROM rocker/verse
 
+#================================================
+# Customize sources for apt-get
+#================================================
+RUN  echo "deb http://archive.ubuntu.com/ubuntu xenial main universe\n" > /etc/apt/sources.list \
+  && echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main universe\n" >> /etc/apt/sources.list \
+&& echo "deb http://security.ubuntu.com/ubuntu xenial-security main universe\n" >> /etc/apt/sources.list
+
 ARG GITHUB_PAT
 
 ## Install system package that r packages depends on
@@ -24,12 +31,7 @@ RUN apt-get update && apt-get install -y \
 
 # copy from https://github.com/SeleniumHQ/docker-selenium/blob/master/NodeFirefox/Dockerfile
 
-#================================================
-# Customize sources for apt-get
-#================================================
-RUN  echo "deb http://archive.ubuntu.com/ubuntu xenial main universe\n" > /etc/apt/sources.list \
-  && echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main universe\n" >> /etc/apt/sources.list \
-&& echo "deb http://security.ubuntu.com/ubuntu xenial-security main universe\n" >> /etc/apt/sources.list
+
 
 #=========
 # Firefox
