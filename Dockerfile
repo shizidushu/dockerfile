@@ -6,7 +6,7 @@ ARG GITHUB_PAT
 RUN apt-get update \
   && apt-get install -y libclang-dev \
   && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-dev.R')" \
-  && wget --no-check-certificate -q https://s3.amazonaws.com/rstudio-ide-build/server/debian9/x86_64/rstudio-server-1.2.1070-amd64.deb \
+  && wget --no-check-certificate -q https://s3.amazonaws.com/rstudio-ide-build/server/debian9/x86_64/rstudio-server-1.2.1153-amd64.deb \
   && dpkg -i rstudio-server-1.2.1070-amd64.deb \
   && rm rstudio-server-1.2.1070-amd64.deb
 
