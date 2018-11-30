@@ -8,13 +8,12 @@ RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubu
   && wget --no-verbose "https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubuntu-12.04/x86_64/shiny-server-$VERSION-amd64.deb" -O ss-latest.deb \
   && gdebi -n ss-latest.deb \
   && rm -f version.txt ss-latest.deb \
-  && R -e "install.packages(c('shiny', 'rmarkdown'), repos='https://cran.rstudio.com/')" \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
-  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.R')" \
-  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-dev.R')" \
-  && rm -rf /tmp/Rtmp*
+# RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
+#  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.R')" \
+#  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-dev.R')" \
+#  && rm -rf /tmp/Rtmp*
 
 RUN cd /usr/bin/ \
   && wget https://raw.githubusercontent.com/rocker-org/shiny/master/shiny-server.sh \
