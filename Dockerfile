@@ -15,6 +15,8 @@ RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubu
 #  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-dev.R')" \
 #  && rm -rf /tmp/Rtmp*
 
+RUN Rscript -e "devtools::install_github('shizidushu/hfun')"
+
 RUN cd /usr/bin/ \
   && wget https://raw.githubusercontent.com/rocker-org/shiny/master/shiny-server.sh \
   && chmod 700 shiny-server.sh \
