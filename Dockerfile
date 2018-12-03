@@ -9,9 +9,14 @@ RUN apt-get update \
     python3-dev \
     python3-pip \
     python3-requests \
-  && pip install -U pip setuptools wheel \
-  && pip install virtualenv \
-  && pip install pandas numpy SciPy matplotlib beautifulsoup4
+    python-numpy \
+    python-scipy \
+    python-matplotlib \
+    python-pandas \
+    python-sympy \
+    python-nose \
+    python-bs4 \
+  && pip install virtualenv
 
 # Install Rstudio preview
 RUN apt-get update \
