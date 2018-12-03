@@ -5,13 +5,13 @@ ARG GITHUB_PAT
 # install python deps
 RUN apt-get update \
   && apt-get install -y \
-    python-pip
+    python-pip \
     python3-dev \
     python3-pip \
     python3-requests \
   && pip install -U pip setuptools wheel \
   && pip install virtualenv \
-  && pip install pandas numpy SciPy matplotlib python-bs4
+  && pip install pandas numpy SciPy matplotlib beautifulsoup4
 
 # Install Rstudio preview
 RUN apt-get update \
