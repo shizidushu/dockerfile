@@ -14,7 +14,7 @@ RUN apt-get update \
   && rm google-chrome-stable_current_amd64.deb
 
 USER rstudio
-RUN Rscript -e "blogdown::install_hugo(); JuliaCall::julia_setup()"
+RUN Rscript -e "blogdown::install_hugo()"
 USER root
 
 # install python deps
