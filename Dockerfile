@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     apt-transport-https \
     bzip2 \
     ca-certificates \
+    cargo \
     cron \
     curl \
     fonts-wqy-zenhei \
