@@ -2,6 +2,9 @@ FROM rocker/verse
 
 ARG GITHUB_PAT
 
+ENV JULIA_PATH /usr/local/julia
+ENV PATH $JULIA_PATH/bin:$PATH
+
 ## Install system package that r packages depends on
 RUN apt-get update && apt-get install -y \
     software-properties-common \
@@ -11,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     cargo \
     cron \
     curl \
+    dirmngr \
     fonts-wqy-zenhei \
     gnupg2 \
     libglu1-mesa-dev \
@@ -23,6 +27,12 @@ RUN apt-get update && apt-get install -y \
     libxi6 \
     libgconf-2-4 \
   && R CMD javareconf \
+  && curl -fL -o julia.tar.gz "https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz" \
+  && mkdir "$JULIA_PATH" \
+  && tar -xzf julia.tar.gz -C "$JULIA_PATH" --strip-components 1 \
+  && rm julia.tar.gz \
+  && julia --version \
+  && echo "options(JULIA_HOME='$JULIA_PATH/bin/')" >> /usr/local/lib/R/etc/Rprofile.site \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
