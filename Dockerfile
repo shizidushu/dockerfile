@@ -3,6 +3,15 @@ FROM shizidushu/complete-r
 ARG GITHUB_PAT
 
 
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+		ca-certificates \
+# ERROR: no download agent available; install curl, wget, or fetch
+		curl \
+	; \
+rm -rf /var/lib/apt/lists/*
+
 ENV JULIA_PATH /usr/local/julia
 ENV PATH $JULIA_PATH/bin:$PATH
 
