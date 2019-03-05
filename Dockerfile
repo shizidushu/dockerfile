@@ -61,8 +61,8 @@ RUN apt-get update && apt-get install -y \
     libxi6 \
     libgconf-2-4 \
   && R CMD javareconf \
-  && curl -fL -o julia.tar.gz "https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz" \
-  && mkdir "$JULIA_PATH" \
+  && curl -fL -o julia.tar.gz https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz \
+  && mkdir $JULIA_PATH \
   && tar -xzf julia.tar.gz -C "$JULIA_PATH" --strip-components 1 \
   && rm julia.tar.gz \
   && julia --version \
