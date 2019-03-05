@@ -19,6 +19,8 @@ RUN apt-get update && apt-get install -y \
     libssh2-1-dev \
     libcairo2-dev \
     libxt-dev \
+    libpython-dev \
+    libpython3-dev \
     wget \
     default-jdk \
     fonts-wqy-zenhei \
