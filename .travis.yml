@@ -6,7 +6,7 @@ jobs:
     - stage: build docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --build-arg GITHUB_PAT=$GITHUB_ACCESS_TOKEN -t complete-r .
+      - travis_wait 60 docker build --build-arg GITHUB_PAT=$GITHUB_ACCESS_TOKEN -t complete-r .
       - docker images
       - docker tag complete-r $DOCKER_USERNAME/complete-r
       - docker push $DOCKER_USERNAME/complete-r
