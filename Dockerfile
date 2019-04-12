@@ -10,7 +10,12 @@ ENV PATH="/opt/mssql-tools/bin:${PATH}"
 
 
 
-
+# add sys lib
+RUN apt-get update -qq && apt-get -y --no-install-recommends install \
+    curl \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/
+  
 
 
 # copy from https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/rstudio/Dockerfile
@@ -50,7 +55,6 @@ RUN apt-get update \
 
 # copy from https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/tidyverse/Dockerfile
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
-    curl \
     libxml2-dev \
     libcairo2-dev \
     libsqlite3-dev \
