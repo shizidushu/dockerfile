@@ -14,6 +14,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     apt-transport-https \
     curl \
     gnupg2 \
+    git \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
   
