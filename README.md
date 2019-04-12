@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/shizidushu/dockerfile.svg?branch=complete-r)](https://travis-ci.org/shizidushu/dockerfile)
+[![Build Status](https://travis-ci.org/shizidushu/dockerfile.svg?branch=compact-r)](https://travis-ci.org/shizidushu/dockerfile)
 
 Based on rocker/r-ver:latest
 
@@ -10,3 +10,5 @@ Add the the following:
 - Fix the path for Chinese
 - Add SQL Server ODBC driver
 - Add tinytex
+- Julia
+- Python
