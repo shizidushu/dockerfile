@@ -11,20 +11,55 @@ ENV PATH="/opt/mssql-tools/bin:${PATH}"
 
 
 
-# Add python
+
+
+# copy from https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/rstudio/Dockerfile
 
 RUN apt-get update \
-  && apt-get install -y \
-    libpython3-dev \
-    python3-setuptools \
+  && apt-get install -y --no-install-recommends \
+    file \
+    git \
+    libapparmor1 \
+    libcurl4-openssl-dev \
+    libedit2 \
+    libssl-dev \
+    lsb-release \
+    psmisc \
+    procps \
+    python-setuptools \
+    sudo \
     wget \
-    unixodbc \
+    libclang-dev \
+    libclang-3.8-dev \
+    libobjc-6-dev \
+    libclang1-3.8 \
+    libclang-common-3.8-dev \
+    libllvm3.8 \
+    libobjc4 \
+    libgc1c2 \
+  && wget -O libssl1.0.0.deb http://ftp.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb \
+  && dpkg -i libssl1.0.0.deb \
+  && rm libssl1.0.0.deb \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/
+
+
+
+
+
+
+# copy from https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/tidyverse/Dockerfile
+RUN apt-get update -qq && apt-get -y --no-install-recommends install \
+    libxml2-dev \
+    libcairo2-dev \
+    libsqlite3-dev \
+    libmariadbd-dev \
+    libmariadb-client-lgpl-dev \
+    libpq-dev \
+    libssh2-1-dev \
     unixodbc-dev \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/ \
-  && easy_install3 pip \
-  && pip3 install -U pip setuptools wheel \
-  && pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt
+  && rm -rf /var/lib/apt/lists/
 
 
 
@@ -89,6 +124,23 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron \
   && install2.r --error PKI
       
+
+
+
+
+
+# Add python
+
+RUN apt-get update \
+  && apt-get install -y \
+    libpython3-dev \
+    python3-setuptools \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
+  && easy_install3 pip \
+  && pip3 install -U pip setuptools wheel \
+  && pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt
+
 
 
 
