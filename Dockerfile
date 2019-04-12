@@ -74,7 +74,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
 # Add python
 
 RUN apt-get update \
-  && apt-get install -y
+  && apt-get install -y \
     libpython-dev \
     libpython3-dev \
   && apt-get clean \
