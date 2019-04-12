@@ -2,6 +2,7 @@ FROM shizidushu/docker-airflow
 
 ARG GITHUB_PAT
 
+RUN mkdir /var/lib/apt/lists/partial
 
 # copy from https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/rstudio/Dockerfile
 
