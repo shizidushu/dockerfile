@@ -2,10 +2,11 @@ FROM rocker/r-ver:latest
 
 ARG GITHUB_PAT
 
+ENV LESSCHARSET=utf-8
 ENV JULIA_PATH /usr/local/julia
 ENV PATH $JULIA_PATH/bin:$PATH
 ENV PATH=$PATH:/opt/TinyTeX/bin/x86_64-linux/
-
+ENV PATH="/opt/mssql-tools/bin:${PATH}"
 
 
 
@@ -14,7 +15,6 @@ ENV PATH=$PATH:/opt/TinyTeX/bin/x86_64-linux/
 
 RUN apt-get update \
   && apt-get install -y \
-    libpython-dev \
     libpython3-dev \
     python3-setuptools \
     wget \
@@ -113,7 +113,6 @@ RUN git config --global core.quotepath false \
     && git config --global gui.encoding utf-8 \
     && git config --global i18n.commit.encoding utf-8 \
     && git config --global i18n.logoutputencoding utf-8
-ENV LESSCHARSET=utf-8
 
 
 
@@ -128,5 +127,5 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
   && apt-get update \
   && ACCEPT_EULA=Y apt-get -y install msodbcsql17 \
   && ACCEPT_EULA=Y apt-get -y install mssql-tools
-ENV PATH="/opt/mssql-tools/bin:${PATH}"
+
 
