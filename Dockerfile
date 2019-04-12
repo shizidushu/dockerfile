@@ -13,6 +13,7 @@ ENV PATH="/opt/mssql-tools/bin:${PATH}"
 # add sys lib
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     curl \
+    gnupg2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
   
