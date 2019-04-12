@@ -69,14 +69,6 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
   && ACCEPT_EULA=Y apt-get -y install mssql-tools
 
 
-
-
-## Add cron to s6-init system
-RUN mkdir -p /etc/services.d/cron \
-  && echo '#!/bin/sh \
-      \n exec cron -f' \
-      > /etc/services.d/cron/run
-      
 ## Install system package that r packages depends on
 RUN apt-get update && apt-get install -y \
     software-properties-common \
@@ -115,6 +107,14 @@ RUN apt-get update && apt-get install -y \
   && R CMD javareconf \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
+
+
+## Add cron to s6-init system
+RUN mkdir -p /etc/services.d/cron \
+  && echo '#!/bin/sh \
+      \n exec cron -f' \
+      > /etc/services.d/cron/run
+
 
 USER rstudio
 ## Install R packages and latex packages
