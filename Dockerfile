@@ -9,6 +9,24 @@ ENV PATH=$PATH:/opt/TinyTeX/bin/x86_64-linux/
 
 
 
+
+# Add python
+
+RUN apt-get update \
+  && apt-get install -y \
+    libpython-dev \
+    libpython3-dev \
+    wget \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
+  && pip install -U pip setuptools wheel \
+  && pip install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt
+
+
+
+
+
+
 # From https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/verse/Dockerfile
 ## Add LaTeX support
 
@@ -67,20 +85,6 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron \
   && install2.r --error PKI
       
-
-
-
-
-# Add python
-
-RUN apt-get update \
-  && apt-get install -y \
-    libpython-dev \
-    libpython3-dev \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/ \
-  && pip install -U pip setuptools wheel \
-  && pip install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt
 
 
 
