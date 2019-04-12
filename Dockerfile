@@ -75,7 +75,46 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
 RUN mkdir -p /etc/services.d/cron \
   && echo '#!/bin/sh \
       \n exec cron -f' \
-      > /etc/services.d/cron/run 
+      > /etc/services.d/cron/run
+      
+## Install system package that r packages depends on
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    bzip2 \
+    ca-certificates \
+    cargo \
+    dirmngr \
+    cron \
+    gdebi-core \
+    pandoc \
+    pandoc-citeproc \
+    libcurl4-gnutls-dev \
+    libxt-dev \
+    fonts-wqy-zenhei \
+    libglu1-mesa-dev \
+    libgit2-dev \
+    gnupg \
+    libgl1-mesa-dev  \
+    libhiredis-dev \
+    tdsodbc \
+    libsqliteodbc \
+    odbc-postgresql \
+    unixodbc \
+    xtail \
+    libudunits2-dev \
+    libgdal-dev \
+    libgeos-dev \
+    libproj-dev \
+    libjq-dev \
+    libprotobuf-dev \
+    protobuf-compiler \
+    unzip \
+    xvfb \
+    libxi6 \
+    libgconf-2-4 \
+  && R CMD javareconf \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/
 
 USER rstudio
 ## Install R packages and latex packages
