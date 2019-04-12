@@ -1,12 +1,8 @@
-[![Build Status](https://travis-ci.org/shizidushu/dockerfile.svg?branch=complete-r)](https://travis-ci.org/shizidushu/dockerfile)
+[![Build Status](https://travis-ci.org/shizidushu/dockerfile.svg?branch=airflow)](https://travis-ci.org/shizidushu/dockerfile)
 
-Based on rocker/r-ver:latest
+Based on shizidushu/docker-airflow
 
-Use rocker/r-ver as base image
 
 Add the the following:
 
-- System package R or related depends on
-- Fix the path for Chinese
-- Add SQL Server ODBC driver
-- Add tinytex
+- r packages
