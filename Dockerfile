@@ -74,8 +74,11 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
 # Add python
 
 RUN apt-get update \
-  && libpython-dev \
-  && libpython3-dev \
+  && apt-get install -y
+    libpython-dev \
+    libpython3-dev \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
   && pip install -U pip setuptools wheel \
   && pip install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt
 
