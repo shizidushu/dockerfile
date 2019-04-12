@@ -69,6 +69,7 @@ USER rstudio
 ## Install R packages and latex packages
 RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
   && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.R')" \
+  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-shiny.R')" \
   && Rscript -e "tinytex::tlmgr_install(readr::read_lines('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/latex-pkgs.txt'))" \
   && Rscript -e "tinytex::tlmgr_update()" \
   && rm -rf /tmp/Rtmp*
