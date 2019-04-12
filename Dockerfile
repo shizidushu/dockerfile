@@ -18,6 +18,8 @@ RUN apt-get update \
     libpython3-dev \
     python3-setuptools \
     wget \
+    unixodbc \
+    unixodbc-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
   && easy_install3 pip \
