@@ -117,6 +117,27 @@ RUN mkdir -p /etc/services.d/cron \
 
 
 USER rstudio
+RUN Rscript -e "blogdown::install_hugo()"
+USER root
+
+# install python deps
+RUN apt-get update \
+  && apt-get install -y \
+    python-pip \
+    python3-dev \
+    python3-pip \
+    python3-requests \
+    python-numpy \
+    python-scipy \
+    python-matplotlib \
+    python-pandas \
+    python-sympy \
+  && pip install virtualenv
+  
+#    python-nose \
+#    python-bs4 \
+
+
 ## Install R packages and latex packages
 RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
   && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.R')" \
@@ -125,4 +146,4 @@ RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
   && Rscript -e "tinytex::tlmgr_install(readr::read_lines('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/latex-pkgs.txt'))" \
   && Rscript -e "tinytex::tlmgr_update()" \
   && rm -rf /tmp/Rtmp*
-USER root
+
