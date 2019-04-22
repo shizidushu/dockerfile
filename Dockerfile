@@ -116,10 +116,6 @@ RUN mkdir -p /etc/services.d/cron \
       > /etc/services.d/cron/run
 
 
-USER rstudio
-RUN Rscript -e "blogdown::install_hugo()"
-USER root
-
 # install python deps
 RUN apt-get update \
   && apt-get install -y \
@@ -147,3 +143,7 @@ RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
   && Rscript -e "tinytex::tlmgr_update()" \
   && rm -rf /tmp/Rtmp*
 
+
+USER rstudio
+RUN Rscript -e "blogdown::install_hugo()"
+USER root
