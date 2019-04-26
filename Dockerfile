@@ -22,4 +22,5 @@ RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
   && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-other.R')" \
   && rm -rf /tmp/Rtmp*
   
-RUN julia -e 'using Pkg; Pkg.resolve(); Pkg.add(["LinearAlgebra", "SparseArrays", "Plots", "Random", "DSP"]); Pkg.add("https://github.com/VMLS-book/VMLS.jl")'
+RUN julia -e 'using Pkg; Pkg.resolve(); Pkg.add(["LinearAlgebra", "SparseArrays", "Plots", "Random", "DSP"]); Pkg.add(PackageSpec(url="https://github.com/VMLS-book/VMLS.jl", rev="master"))'
+
