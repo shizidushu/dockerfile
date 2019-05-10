@@ -12,10 +12,9 @@ RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/VERSION 
 
 # RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
 #  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.R')" \
-#  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-dev.R')" \
+#  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-shiny.R')" \
 #  && rm -rf /tmp/Rtmp*
 
-RUN Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-shiny.R')"
 
 RUN cd /usr/bin/ \
   && wget https://raw.githubusercontent.com/rocker-org/shiny/master/shiny-server.sh \
