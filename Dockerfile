@@ -167,4 +167,5 @@ RUN apt-get update && apt-get install -y \
 
 RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
   && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.R')" \
+  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-shiny.R')" \
   && rm -rf /tmp/Rtmp*
