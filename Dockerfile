@@ -140,6 +140,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
 RUN apt-get update \
   && apt-get install -y \
     libpython3-dev \
+    python3-venv \
     python3-setuptools \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
