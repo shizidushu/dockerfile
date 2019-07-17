@@ -145,7 +145,7 @@ RUN apt-get update \
     python3-setuptools \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
-  && pip3 install -U pip setuptools wheel \
+  # && pip3 install -U pip setuptools wheel \
   && pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt
 
 
