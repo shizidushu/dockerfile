@@ -4,6 +4,10 @@ ARG GITHUB_PAT
 
 USER root
 
+# Add python modules
+RUN pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt \
+  && pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/python-module-for-airflow.txt
+
 # Install R
 ## Copy from https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/r-ver/Dockerfile
 
