@@ -4,9 +4,22 @@ ARG GITHUB_PAT
 
 USER root
 
+# Add system libs & minor fix
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    unixodbc-dev \
+  # fix jdk https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
+  && mkdir mkdir -p /usr/share/man/man1
+
+
+
+
+
 # Add python modules
 RUN pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt \
   && pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/python-module-for-airflow.txt
+
+
 
 # Install R
 ## Copy from https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/r-ver/Dockerfile
@@ -133,6 +146,8 @@ RUN apt-get update \
   && apt-get autoremove -y \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/*
+
+
 
 
 USER airflow
