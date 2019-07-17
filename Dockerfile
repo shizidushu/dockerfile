@@ -312,4 +312,10 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
 
 
 
+# Install basic r packages
+RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
+  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.R')" \
+  && rm -rf /tmp/Rtmp*
+
+
 USER airflow
