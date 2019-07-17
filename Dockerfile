@@ -2,12 +2,21 @@ FROM puckel/docker-airflow
 
 ARG GITHUB_PAT
 
+ENV JULIA_PATH /usr/local/julia
+ENV PATH $JULIA_PATH/bin:$PATH
+ENV PATH=$PATH:/opt/TinyTeX/bin/x86_64-linux/
+ENV PATH="/opt/mssql-tools/bin:${PATH}"
+
 USER root
 
 # Add system libs & minor fix
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     unixodbc-dev \
+    apt-transport-https \
+    curl \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
   # fix jdk https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
   && mkdir -p /usr/share/man/man1 \
   && mkdir tmp/
