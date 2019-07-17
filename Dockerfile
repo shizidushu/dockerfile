@@ -106,7 +106,7 @@ RUN apt-get update \
     xvfb \
     zlib1g-dev" \
   && apt-get install -y --no-install-recommends $BUILDDEPS \
-  && cd tmp/ \
+  && cd /tmp/ \
   ## Download source code
   && curl -O https://cran.r-project.org/src/base/R-3/R-${R_VERSION}.tar.gz \
   ## Extract source code
