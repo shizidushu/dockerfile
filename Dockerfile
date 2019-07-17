@@ -1,4 +1,4 @@
-FROM puckel/docker-airflow
+FROM puckel/docker-airflow:1.10.3
 
 ARG GITHUB_PAT
 
