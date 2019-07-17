@@ -9,6 +9,8 @@ ENV PATH="/opt/mssql-tools/bin:${PATH}"
 
 USER root
 
+WORKDIR  /
+
 # Add system libs & minor fix
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -19,8 +21,7 @@ RUN apt-get update \
   && groupadd --gid 119 docker \
   && usermod -aG docker airflow \
   # fix jdk https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
-  && mkdir -p /usr/share/man/man1 \
-  && mkdir tmp/
+  && mkdir -p /usr/share/man/man1
 
 
 
