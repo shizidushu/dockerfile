@@ -22,7 +22,8 @@ RUN apt-get update \
   && usermod -aG docker airflow \
   # fix jdk https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
   && mkdir -p /usr/share/man/man1 \
-  && cd /
+  && cd / \
+  && mkdir tmp
 
 
 
