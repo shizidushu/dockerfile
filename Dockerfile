@@ -309,3 +309,4 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
 
 
 USER airflow
+WORKDIR ${AIRFLOW_USER_HOME}
