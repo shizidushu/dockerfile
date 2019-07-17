@@ -14,7 +14,6 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     unixodbc-dev \
     apt-transport-https \
-    curl \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
   && groupadd --gid 119 docker \
