@@ -9,7 +9,8 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     unixodbc-dev \
   # fix jdk https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
-  && mkdir -p /usr/share/man/man1
+  && mkdir -p /usr/share/man/man1 \
+  && mkdir tmp/
 
 
 
