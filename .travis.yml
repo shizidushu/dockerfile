@@ -6,7 +6,7 @@ jobs:
     - stage: build docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build --build-arg GITHUB_PAT=$GITHUB_ACCESS_TOKEN -t airflow .
+      - travis_wait 60 docker build --build-arg GITHUB_PAT=$GITHUB_ACCESS_TOKEN -t airflow .
       - docker images
       - docker tag airflow $DOCKER_USERNAME/airflow:1.10.3
       - docker push $DOCKER_USERNAME/airflow
