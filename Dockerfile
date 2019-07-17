@@ -17,6 +17,8 @@ RUN apt-get update \
     curl \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
+  && groupadd --gid 119 docker \
+  && usermod -aG docker airflow \
   # fix jdk https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
   && mkdir -p /usr/share/man/man1 \
   && mkdir tmp/
