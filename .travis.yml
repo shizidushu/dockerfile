@@ -6,7 +6,7 @@ jobs:
     - stage: build docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - travis_wait 45 docker build --build-arg GITHUB_PAT=$GITHUB_ACCESS_TOKEN -t rstudio .
+      - travis_wait 60 docker build --build-arg GITHUB_PAT=$GITHUB_ACCESS_TOKEN -t rstudio .
       - docker images
       - docker tag rstudio $DOCKER_USERNAME/rstudio
       - docker push $DOCKER_USERNAME/rstudio
