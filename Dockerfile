@@ -117,19 +117,21 @@ RUN mkdir -p /etc/services.d/cron \
 
 
 # install python deps
-RUN apt-get update \
-  && apt-get install -y \
-    python-pip \
-    python3-dev \
-    python3-pip \
-    python3-requests \
-    python-numpy \
-    python-scipy \
-    python-matplotlib \
-    python-pandas \
-    python-sympy \
-  && pip install virtualenv
-  
+RUN pip3 install -r 'https://github.com/shizidushu/common-pkg-list/raw/master/basic-python-module.txt'
+
+# RUN apt-get update \
+#  && apt-get install -y \
+#    python-pip \
+#    python3-dev \
+#    python3-pip \
+#    python3-requests \
+#    python-numpy \
+#    python-scipy \
+#    python-matplotlib \
+#    python-pandas \
+#    python-sympy \
+#  && pip install virtualenv
+#  
 #    python-nose \
 #    python-bs4 \
 
