@@ -136,17 +136,5 @@ RUN pip3 install -r 'https://github.com/shizidushu/common-pkg-list/raw/master/ba
 #    python-bs4 \
 
 
-## Install R packages and latex packages
-RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
-  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs.R')" \
-  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-rstudio.R')" \
-  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-shiny.R')" \
-  && Rscript -e "devtools::source_url('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/r-pkgs-ready.R')" \
-  && Rscript -e "tinytex::tlmgr_install(readr::read_lines('https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/latex-pkgs.txt'))" \
-  && Rscript -e "tinytex::tlmgr_update()" \
-  && rm -rf /tmp/Rtmp*
 
-
-USER rstudio
-RUN Rscript -e "blogdown::install_hugo()"
 USER root
