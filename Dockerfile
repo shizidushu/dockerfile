@@ -147,9 +147,6 @@ RUN apt-get update \
 
 
 
-
-
-
 # copy from https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/rstudio/Dockerfile
 
 RUN apt-get update \
@@ -196,70 +193,6 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     unixodbc-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
-
-
-
-
-
-
-# From https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/verse/Dockerfile
-## Add LaTeX support
-
-RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
-  && dpkg -i texlive-local.deb \
-  && rm texlive-local.deb \
-  && apt-get update \
-  && apt-get install -y --no-install-recommends \
-    ## for rJava
-    default-jdk \
-    ## Nice Google fonts
-    fonts-roboto \
-    ## used by some base R plots
-    ghostscript \
-    ## used to build rJava and other packages
-    libbz2-dev \
-    libicu-dev \
-    liblzma-dev \
-    ## system dependency of hunspell (devtools)
-    libhunspell-dev \
-    ## system dependency of hadley/pkgdown
-    libmagick++-dev \
-    ## rdf, for redland / linked data
-    librdf0-dev \
-    ## for V8-based javascript wrappers
-    libv8-dev \
-    ## R CMD Check wants qpdf to check pdf sizes, or throws a Warning
-    qpdf \
-    ## For building PDF manuals
-    texinfo \
-    ## for git via ssh key
-    ssh \
- ## just because
-    less \
-    vim \
- ## parallelization
-    libzmq3-dev \
-    libopenmpi-dev \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/ \
-  ## Use tinytex for LaTeX installation
-  && install2.r --error tinytex \
-  ## Admin-based install of TinyTeX:
-  && wget -qO- \
-    "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
-    sh -s - --admin --no-path \
-  && mv ~/.TinyTeX /opt/TinyTeX \
-  && /opt/TinyTeX/bin/*/tlmgr path add \
-  && tlmgr install metafont mfware inconsolata tex ae parskip listings \
-  && tlmgr path add \
-  && Rscript -e "tinytex::r_texmf()" \
-  && chown -R root:staff /opt/TinyTeX \
-  && chown -R root:staff /usr/local/lib/R/site-library \
-  && chmod -R g+w /opt/TinyTeX \
-  && chmod -R g+wx /opt/TinyTeX/bin \
-  && echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron \
-  && install2.r --error PKI
-  
 
 
 # Install Julia
@@ -343,3 +276,5 @@ RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
 
 RUN pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt \
   && pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/python-module-for-fastapi.txt
+
+
