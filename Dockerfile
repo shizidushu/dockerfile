@@ -15,6 +15,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     apt-transport-https \
     curl \
     gnupg2 \
+    libsodium-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
   
