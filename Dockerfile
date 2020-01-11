@@ -160,6 +160,7 @@ RUN apt-get update && apt-get install -y \
     xvfb \
     libxi6 \
     libgconf-2-4 \
+    libsodium-dev \
   && R CMD javareconf \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
