@@ -102,7 +102,7 @@ RUN apt-get update \
 
 
 # Install Julia
-RUN curl -fL -o julia.tar.gz "https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz" \
+RUN curl -fL -o julia.tar.gz "https://julialang-s3.julialang.org/bin/linux/x64/1.3/julia-1.3.1-linux-x86_64.tar.gz" \
   && mkdir "$JULIA_PATH" \
   && tar -xzf julia.tar.gz -C "$JULIA_PATH" --strip-components 1 \
   && rm julia.tar.gz \
