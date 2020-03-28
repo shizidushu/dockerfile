@@ -21,14 +21,14 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
 # Add python
 
 RUN apt-get update \
-  && apt-get install -y \
-    build-essential libssl-dev libffi-dev python3-dev \
-    python3-pip \
+ && apt-get install -y \
+   python-pip \
+   python3-dev \
+   python3-pip \
+   python3-venv \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
   && pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt
-
-
 
 
 
@@ -113,26 +113,6 @@ RUN mkdir -p /etc/services.d/cron \
   && echo '#!/bin/sh \
       \n exec cron -f' \
       > /etc/services.d/cron/run
-
-
-# install python deps
-RUN pip3 install -r 'https://github.com/shizidushu/common-pkg-list/raw/master/basic-python-module.txt'
-
-# RUN apt-get update \
-#  && apt-get install -y \
-#    python-pip \
-#    python3-dev \
-#    python3-pip \
-#    python3-requests \
-#    python-numpy \
-#    python-scipy \
-#    python-matplotlib \
-#    python-pandas \
-#    python-sympy \
-#  && pip install virtualenv
-#  
-#    python-nose \
-#    python-bs4 \
 
 
 ## Install R packages and latex packages
