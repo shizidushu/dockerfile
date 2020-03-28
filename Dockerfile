@@ -21,7 +21,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   
 
 
-# copy from https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/rstudio/Dockerfile
+# copy from https://github.com/rocker-org/rocker-versioned/blob/master/rstudio/3.6.1.Dockerfile
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -34,6 +34,7 @@ RUN apt-get update \
     lsb-release \
     psmisc \
     procps \
+    python-setuptools \
     sudo \
     wget \
     libclang-dev \
@@ -44,9 +45,6 @@ RUN apt-get update \
     libllvm3.8 \
     libobjc4 \
     libgc1c2 \
-  && wget -O libssl1.0.0.deb http://ftp.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb \
-  && dpkg -i libssl1.0.0.deb \
-  && rm libssl1.0.0.deb \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
 
@@ -55,16 +53,17 @@ RUN apt-get update \
 
 
 
-# copy from https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/tidyverse/Dockerfile
+# copy from https://github.com/rocker-org/rocker-versioned/blob/master/tidyverse/3.6.1.Dockerfile
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
-    libxml2-dev \
-    libcairo2-dev \
-    libsqlite3-dev \
-    libmariadbd-dev \
-    libmariadb-client-lgpl-dev \
-    libpq-dev \
-    libssh2-1-dev \
-    unixodbc-dev \
+  libxml2-dev \
+  libcairo2-dev \
+  libsqlite3-dev \
+  libmariadbd-dev \
+  libmariadb-client-lgpl-dev \
+  libpq-dev \
+  libssh2-1-dev \
+  unixodbc-dev \
+  libsasl2-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
 
@@ -74,13 +73,15 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
 
 
 # From https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/verse/Dockerfile
-## Add LaTeX support
 
+## Add LaTeX, rticles and bookdown support
 RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
   && dpkg -i texlive-local.deb \
   && rm texlive-local.deb \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
+    ## for some package installs
+    cmake \
     ## for rJava
     default-jdk \
     ## Nice Google fonts
@@ -105,10 +106,10 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     texinfo \
     ## for git via ssh key
     ssh \
- ## just because
+    ## just because
     less \
     vim \
- ## parallelization
+    ## parallelization
     libzmq3-dev \
     libopenmpi-dev \
   && apt-get clean \
@@ -120,12 +121,32 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
     "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
     sh -s - --admin --no-path \
   && mv ~/.TinyTeX /opt/TinyTeX \
+  && if /opt/TinyTeX/bin/*/tex -v | grep -q 'TeX Live 2018'; then \
+      ## Patch the Perl modules in the frozen TeX Live 2018 snapshot with the newer
+      ## version available for the installer in tlnet/tlpkg/TeXLive, to include the
+      ## fix described in https://github.com/yihui/tinytex/issues/77#issuecomment-466584510
+      ## as discussed in https://www.preining.info/blog/2019/09/tex-services-at-texlive-info/#comments
+      wget -P /tmp/ ${CTAN_REPO}/install-tl-unx.tar.gz \
+      && tar -xzf /tmp/install-tl-unx.tar.gz -C /tmp/ \
+      && cp -Tr /tmp/install-tl-*/tlpkg/TeXLive /opt/TinyTeX/tlpkg/TeXLive \
+      && rm -r /tmp/install-tl-*; \
+    fi \
+  && if /opt/TinyTeX/bin/*/tex -v | grep -q 'TeX Live 2016'; then \
+      ## Patch error handling of tlmgr path (https://tex.stackexchange.com/a/314079)
+      ## in the frozen TeX Live 2016 snapshot by back-porting the corresponding fix:
+      ## https://git.texlive.info/texlive/commit/Master/tlpkg/TeXLive/TLUtils.pm?id=69cee5e1ce4b20f6ebb6af77e19d49706a842a3e
+      apt-get update && apt-get install -y --no-install-recommends patch \
+      && wget -qO- \
+         "https://git.texlive.info/texlive/patch/Master/tlpkg/TeXLive/TLUtils.pm?id=69cee5e1ce4b20f6ebb6af77e19d49706a842a3e" | \
+         patch -i - /opt/TinyTeX/tlpkg/TeXLive/TLUtils.pm \
+      && apt-get remove --purge --autoremove -y patch \
+      && apt-get clean && rm -rf /var/lib/apt/lists/; \
+    fi \
   && /opt/TinyTeX/bin/*/tlmgr path add \
-  && tlmgr install metafont mfware inconsolata tex ae parskip listings \
+  && tlmgr install ae inconsolata listings metafont mfware parskip pdfcrop tex \
   && tlmgr path add \
   && Rscript -e "tinytex::r_texmf()" \
   && chown -R root:staff /opt/TinyTeX \
-  && chown -R root:staff /usr/local/lib/R/site-library \
   && chmod -R g+w /opt/TinyTeX \
   && chmod -R g+wx /opt/TinyTeX/bin \
   && echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron \
@@ -139,17 +160,16 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
 # Add python
 
 RUN apt-get update \
-  && apt-get install -y \
-    libpython3-dev \
-    python3-venv \
-    python3-pip \
-    python3-setuptools \
+ && apt-get install -y \
+   python-pip \
+   python3-dev \
+   python3-pip \
+   python3-venv \
+   libpython3-dev \
+   python3-setuptools \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
-  # && pip3 install -U pip setuptools wheel \
   && pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt
-
-
 
 
 
