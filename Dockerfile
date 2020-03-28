@@ -109,10 +109,10 @@ RUN apt-get update && apt-get install -y \
 
 
 ## Add cron to s6-init system
-RUN mkdir -p /etc/services.d/cron \
-  && echo '#!/bin/sh \
-      \n exec cron -f' \
-      > /etc/services.d/cron/run
+# RUN mkdir -p /etc/services.d/cron \
+#   && echo '#!/bin/sh \
+#       \n exec cron -f' \
+#       > /etc/services.d/cron/run
 
 
 ## Install R packages and latex packages
