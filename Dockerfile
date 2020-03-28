@@ -22,12 +22,10 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
 
 RUN apt-get update \
   && apt-get install -y \
-    libpython3-dev \
-    python3-setuptools \
+    build-essential libssl-dev libffi-dev python3-dev \
+    python3-pip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/ \
-  && easy_install3 pip \
-  && pip3 install -U pip setuptools wheel \
   && pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt
 
 
@@ -36,7 +34,7 @@ RUN apt-get update \
 
 
 # Install Julia
-RUN curl -fL -o julia.tar.gz "https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz" \
+RUN curl -fL -o julia.tar.gz "https://julialang-s3.julialang.org/bin/linux/x64/1.4/julia-1.4.0-linux-x86_64.tar.gz" \
   && mkdir "$JULIA_PATH" \
   && tar -xzf julia.tar.gz -C "$JULIA_PATH" --strip-components 1 \
   && rm julia.tar.gz \
