@@ -71,19 +71,6 @@ RUN git config --global core.quotepath false \
 
 
 
-
-
-# install SQL Server drivers and tools
-### https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server    
-### https://github.com/Microsoft/mssql-docker/blob/master/linux/mssql-tools/Dockerfile
-
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-  && curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list \
-  && apt-get update \
-  && ACCEPT_EULA=Y apt-get -y install msodbcsql17 \
-  && ACCEPT_EULA=Y apt-get -y install mssql-tools
-
-
 ## Install system package that r packages depends on
 RUN apt-get update && apt-get install -y \
     software-properties-common \
@@ -130,6 +117,16 @@ RUN apt-get update && apt-get install -y \
 #       \n exec cron -f' \
 #       > /etc/services.d/cron/run
 
+
+# install SQL Server drivers and tools
+### https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server    
+### https://github.com/Microsoft/mssql-docker/blob/master/linux/mssql-tools/Dockerfile
+
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+  && curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+  && apt-get update \
+  && ACCEPT_EULA=Y apt-get -y install msodbcsql17 \
+  && ACCEPT_EULA=Y apt-get -y install mssql-tools
 
 ## Install R packages and latex packages
 RUN Rscript -e "if (!require(devtools)) install.packages('devtools')" \
