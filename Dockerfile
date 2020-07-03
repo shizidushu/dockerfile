@@ -96,7 +96,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN python3 -m venv ${PYTHON_VENV_PATH}
 
-RUN chown -R rstudio:rstudio ${WORKON_HOME}
 ENV PATH ${PYTHON_VENV_PATH}/bin:${PATH}
 ## And set ENV for R! It doesn't read from the environment...
 RUN echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron && \
@@ -107,11 +106,8 @@ RUN echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron && \
 RUN ln -s ${PYTHON_VENV_PATH}/bin/pip /usr/local/bin/pip && \
     ln -s ${PYTHON_VENV_PATH}/bin/virtualenv /usr/local/bin/virtualenv
 
-## install as user to avoid venv issues later
-USER rstudio
 RUN pip3 install -r https://raw.githubusercontent.com/shizidushu/common-pkg-list/master/basic-python-module.txt \
     --no-cache-dir
-USER root
 
 
 
